@@ -1,10 +1,91 @@
-<html>
-    <head>
-        <title>
-            <%= title %>
-        </title>
-    </head>
-    <body>
-        <h1> task_project/ <%= title %> </h1>
-    </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= locals.title%>
+    </title>
+    <script src="https://kit.fontawesome.com/ce4b2c0eb6.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+<body>
+    <!-- title section--> 
+    <div id="title">
+        <i class="fa-solid fa-rectangle-list"></i>
+        TODO App
+    </div>
+
+    <div id="container">
+        <form action='/create-task' method="POST"> 
+
+            <!-- description section -->    
+            <div id="description-section">
+                <label for="description" >DESCRIPTION</label><br>
+                <input type="text" id="description" name="description" placeholder="What do you need to do?">
+            </div>
+
+            <!-- 'category' and 'due date'  section-->
+            <div id="divide-fifty-fifty">
+                <div id="category-section">
+                    <label for="category">CATERGORY</label><br>
+                    <select id="category" name="category"  >
+                        <option  selected  disabled>choose a category</option>
+                        <option value="Personal">Personal</option>
+                        <option value="Work">Work</option>
+                        <option value="Schools">Schools</option>
+                        <option value="other">other</option>
+                    </select>
+                </div>
+
+                <div id="due-date-section">
+                    <label for="date_pick">DUE DATE</label><br>
+                    <input type="date" id="date_pick" name="date">
+                </div>
+
+            </div>
+
+            <!-- 'add task' and 'delete task' section -->
+            <div id="add-delete-buttons">
+                <button type="submit" id="add-task">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>Add task</span>
+                </button>
+                <button type="button" id="delete-task">
+                    <i class="fa-solid fa-trash"></i>
+                    <span>Delete task</span>
+                </button>
+            </div>
+
+        </form>   
+    </div>
+
+        <!-- task listing section  -->
+    <div id="task-list-container">
+        <ul>
+            <% for(let i of task_List) { %>
+                <li class="tasks">
+                    
+                    <div class="details">
+                        <p id="fifty"><%= i.description %></p>
+                        <p id="twenty"><%= i.category %></p>
+                        <div class="delete-button" id="ten">
+                            <a href="/delete-contact/?id=<%= i.id %>">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div id="cal" > 
+                        <p><%= i.date %></p>
+                    </div>
+
+                </li>
+            <% } %>
+        </ul>
+    </div>
+  
+
+    <script type="text/javascript" src="/js/home.js"></script>
+</body>
 </html>
